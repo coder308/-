@@ -1,0 +1,38 @@
+'''
+import re
+re.sub(ctrl+click'sub')
+__init__.py
+
+'''
+class _ZeroSentinel(int):#sentinel哨兵
+    pass
+_zero_sentinel = _ZeroSentinel()
+print(_zero_sentinel)####default output:0
+####because print(_zero_sentinel) == print(_ZeroSentinel()) 'A constructor' == print(int()) 'A default constructor called from father class int and int()==0'
+
+def sub(pattern, repl, string, *args, count=_zero_sentinel, flags=_zero_sentinel):
+    """Return the string obtained by replacing the leftmost
+    non-overlapping不重叠的 occurrences发生 of the pattern in string by the
+    replacement repl.  repl can be either a string or a callable可调用的;
+    if a string, backslash escapes in it are processed.  If it is
+    a callable, it's passed the Match object and must return
+    a replacement string to be used."""
+    if args:
+        if count is not _zero_sentinel:#### difference between is and ==,former is contrast the memory location and latter is the value
+            raise TypeError("sub() got multiple values for argument 'count'")
+        count, *args = args
+        if args:
+            if flags is not _zero_sentinel:
+                raise TypeError("sub() got multiple values for argument 'flags'")
+            flags, *args = args
+            if args:
+                raise TypeError("sub() takes from 3 to 5 positional arguments "
+                                "but %d were given" % (5 + len(args)))
+
+        import warnings
+        warnings.warn(
+            "'count' is passed as positional argument",
+            DeprecationWarning, stacklevel=2
+        )
+
+    return _compile(pattern, flags).sub(repl, string, count)
