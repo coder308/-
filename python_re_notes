@@ -7,6 +7,8 @@ __init__.py
 class _ZeroSentinel(int):#sentinel哨兵
     pass
 _zero_sentinel = _ZeroSentinel()
+print(_zero_sentinel)####default output:0
+####because print(_zero_sentinel) == print(_ZeroSentinel()) 'A constructor' == print(int()) 'A default constructor called from father class int and int()==0'
 
 def sub(pattern, repl, string, *args, count=_zero_sentinel, flags=_zero_sentinel):
     """Return the string obtained by replacing the leftmost
@@ -16,7 +18,7 @@ def sub(pattern, repl, string, *args, count=_zero_sentinel, flags=_zero_sentinel
     a callable, it's passed the Match object and must return
     a replacement string to be used."""
     if args:
-        if count is not _zero_sentinel:
+        if count is not _zero_sentinel:#### difference between is and ==,former is contrast the memory location and latter is the value
             raise TypeError("sub() got multiple values for argument 'count'")
         count, *args = args
         if args:
